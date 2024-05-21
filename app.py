@@ -7,16 +7,16 @@ api = Api(app)
 
 class Greet(Resource):
 
-    def get(self):
+    def get(self, name):
 
-        return {"data": "Hello World!"}
+        return {"data": name}
 
     def post(self):
 
         return {"data": "Posted!"}
 
 
-api.add_resource(Greet, "/greet")
+api.add_resource(Greet, "/greet/<string:name>")
 
 if __name__ == "__main__":
     app.run(debug=True)
