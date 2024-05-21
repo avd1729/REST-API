@@ -11,6 +11,10 @@ class Greet(Resource):
 
         return {"data": "Hello World!"}
 
+    def post(self):
+
+        return {"data": "Posted!"}
+
 
 api.add_resource(Greet, "/greet")
 
