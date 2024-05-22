@@ -1,8 +1,27 @@
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource, reqparse, abort
+from flask_sqlalchemy import SQLAlchemy
+import os
+
 
 app = Flask(__name__)
 api = Api(app)
+app.app_context().push()
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SECRET_KEY'] = os.urandom(24)
+db = SQLAlchemy(app)
+
+
+class VideoModel(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    views = db.Column(db.Integer, nullable=False)
+    likes = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self) -> str:
+        return f"Video(name = {name} , views = {views} , likes = {likes})"
+
 
 video_put_args = reqparse.RequestParser()
 video_put_args.add_argument(
